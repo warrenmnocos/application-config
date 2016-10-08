@@ -20,8 +20,6 @@ eureka:
     client:
         service-url:
             defaultZone: ${eureka.instance.protocol}://${eureka.instance.ip-address}:${eureka.instance.port}${eureka.instance.context-path}/eureka/
-        register-with-eureka: false
-        fetch-registry: false
 zuul:
     routes:
         registrys:
