@@ -36,3 +36,5 @@ zuul:
             retryable: true
             strip-prefix: false
     add-proxy-headers: true
+management:
+    context-path: /admin
