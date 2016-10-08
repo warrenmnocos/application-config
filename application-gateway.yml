@@ -24,11 +24,6 @@ eureka:
             defaultZone: ${eureka.instance.protocol}://${eureka.instance.user}:${eureka.instance.password}@${eureka.instance.ip-address}:${eureka.instance.port}${eureka.instance.context-path}/eureka/
 zuul:
     routes:
-        registrys:
-            path: /registry/**
-            retryable: true
-            sensitive-headers:
-            strip-prefix: false
         account:
             path: /account/**
             retryable: true
