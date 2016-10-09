@@ -12,9 +12,8 @@ server:
 eureka:
     instance:
         protocol: http
-        ip-address: localhost
+        ip-address: 172.17.0.1
         port: 8081
-        hostname: localhost
         context-path: /registry
         prefer-ip-address: true
     client:
