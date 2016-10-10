@@ -34,9 +34,3 @@ zuul:
     add-proxy-headers: true
 management:
     context-path: /admin
-
----
-spring:
-    profiles: default
-    profiles:
-        active: production

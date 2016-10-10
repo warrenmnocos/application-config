@@ -40,9 +40,3 @@ server:
     address: 0.0.0.0
 management:
     context-path: /admin
-
----
-spring:
-    profiles: default
-    profiles:
-        active: production
