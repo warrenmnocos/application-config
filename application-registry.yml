@@ -1,5 +1,5 @@
 spring:
-    profiles: default
+    profiles: production
     application:
         name: application-registry
 security:
@@ -23,3 +23,8 @@ eureka:
         fetch-registry: false
 management:
     context-path: /admin
+
+---
+spring:
+    profiles:
+        active: production
