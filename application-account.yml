@@ -3,15 +3,18 @@ spring:
     application:
         name: account
     jpa:
-        database: h2
-        database-platform: H2
+        show-sql: true
+        generate-ddl: true
         hibernate:
             use-new-id-generator-mappings: true
     datasource:
         hikari:
             maximum-pool-size: 20
-            pool-name: datasource-default
+            pool-name: datasource-development
         type: com.zaxxer.hikari.HikariDataSource
+        username: root
+        url: jdbc:mysql://localhost:3306/application-account?serverTimezone=UTC
+        driver-class-name: com.mysql.cj.jdbc.Driver
 security:
     user:
         password: none
@@ -40,54 +43,5 @@ management:
 
 ---
 spring:
-    profiles: initialization
-    application:
-        name: account
-    jpa:
-        generate-ddl: true
-        database: h2
-        database-platform: H2
-        hibernate:
-            use-new-id-generator-mappings: true
-    datasource:
-        hikari:
-            maximum-pool-size: 20
-            pool-name: datasource-default
-        type: com.zaxxer.hikari.HikariDataSource
-security:
-    user:
-        password: none
-    oauth2:
-        client:
-            client-id: none
-            client-secret: none
-server:
-    port: 8082
-    context-path: /account
-    address: 0.0.0.0
-management:
-    context-path: /admin
-
----
-spring:
-    profiles: installation
-    application:
-        name: account
-security:
-    user:
-        password: none
-    oauth2:
-        client:
-            client-id: none
-            client-secret: none
-server:
-    port: 8082
-    context-path: /account
-    address: 0.0.0.0
-management:
-    context-path: /admin
-
----
-spring:
     profiles:
-        active: installation
+        active: production
