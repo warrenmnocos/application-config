@@ -2,6 +2,8 @@ spring:
     profiles: production
     application:
         name: account
+    aop:
+        proxy-target-class: true
     jpa:
         show-sql: true
         generate-ddl: true

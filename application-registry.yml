@@ -2,6 +2,8 @@ spring:
     profiles: production
     application:
         name: application-registry
+    aop:
+        proxy-target-class: true
 security:
     user:
         password: bebgb58b45ufb84h4tfb8bs74yytg59p0u0iuf584fbriufn48f4nf7                 
