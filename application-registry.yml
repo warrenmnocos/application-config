@@ -26,5 +26,6 @@ management:
 
 ---
 spring:
+    profiles: default
     profiles:
         active: production
