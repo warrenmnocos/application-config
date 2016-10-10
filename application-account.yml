@@ -1,0 +1,47 @@
+spring:
+    profiles: default
+    application:
+        name: account
+    jpa:
+        database: h2
+        database-platform: H2
+        hibernate:
+            use-new-id-generator-mappings: true
+    datasource:
+        hikari:
+            maximum-pool-size: 20
+            pool-name: datasource-default
+        type: com.zaxxer.hikari.HikariDataSource
+security:
+    user:
+        password: none
+    oauth2:
+        client:
+            client-id: none
+            client-secret: none
+eureka:
+    instance:
+        protocol: http
+        ip-address: 172.17.0.1
+        port: 8081
+        context-path: /registry
+        prefer-ip-address: true
+        user: user
+        password: bebgb58b45ufb84h4tfb8bs74yytg59p0u0iuf584fbriufn48f4nf7
+    client:
+        service-url:
+            defaultZone: ${eureka.instance.protocol}://${eureka.instance.user}:${eureka.instance.password}@${eureka.instance.ip-address}:${eureka.instance.port}${eureka.instance.context-path}/eureka/
+server:
+    port: 8082
+    context-path: /account
+    address: 0.0.0.0
+management:
+    context-path: /admin
+
+---
+spring:
+    profiles: initialization
+    application:
+        name: account
+    jpa:
+        generate-ddl: true
