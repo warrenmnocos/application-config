@@ -19,6 +19,9 @@ security:
     user:
         password: none
     oauth2:
+        authorization:
+            check-token-access: isAuthenticated()
+            token-key-access: permitAll()
         client:
             client-id: none
             client-secret: none
