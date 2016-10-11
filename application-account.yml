@@ -1,7 +1,7 @@
 spring:
     profiles: production
     application:
-        name: account
+        name: application-account
     aop:
         proxy-target-class: true
     jpa:
