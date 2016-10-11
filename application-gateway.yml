@@ -9,7 +9,6 @@ security:
         password: bebgb58b45ufb84h4tfb8bs74yytg59p0u0iuf584fbriufn48f4nf7                 
 server:
     port: 80
-    context-path: /gateway
     address: 0.0.0.0
 eureka:
     instance:
