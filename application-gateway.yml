@@ -34,5 +34,17 @@ hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ribbon:
     ConnectTimeout: 3000
     ReadTimeout: 60000
+eureka:
+    instance:
+        protocol: http
+        ip-address: 172.17.0.1
+        port: 8081
+        context-path: /registry
+        prefer-ip-address: true
+        user: user
+        password: bebgb58b45ufb84h4tfb8bs74yytg59p0u0iuf584fbriufn48f4nf7
+    client:
+        service-url:
+            defaultZone: ${eureka.instance.protocol}://${eureka.instance.user}:${eureka.instance.password}@${eureka.instance.ip-address}:${eureka.instance.port}${eureka.instance.context-path}/eureka/
 management:
     context-path: /admin
