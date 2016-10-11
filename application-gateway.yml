@@ -28,10 +28,6 @@ zuul:
             path: /account/**
             retryable: true
             strip-prefix: false
-        gateway:
-            path: /gateway/**
-            retryable: true
-            strip-prefix: false
     add-proxy-headers: true
 management:
     context-path: /admin
