@@ -6,28 +6,33 @@ spring:
         proxy-target-class: true
 security:
     user:
-        password: bebgb58b45ufb84h4tfb8bs74yytg59p0u0iuf584fbriufn48f4nf7                 
+        password: none
+    oauth2:
+        sso:
+            protocol: http
+            address: 172.17.0.1
+            port: 80
+            context-path: /account
+        client:
+            client-id: d56h2sf5c5drsdgr4xpl234cm085021r
+            client-secret: of7ho3vc86t00hd6bg7qrwpl12h754pl
+        resource:
+            token-info-uri: ${security.oauth2.sso.protocol}://${security.oauth2.sso.address}:${security.oauth2.sso.port}${security.oauth2.sso.context-path}/oauth/check_token
 server:
     port: 80
     address: 0.0.0.0
-eureka:
-    instance:
-        protocol: http
-        ip-address: 172.17.0.1
-        port: 8081
-        context-path: /registry
-        prefer-ip-address: true
-        user: user
-        password: bebgb58b45ufb84h4tfb8bs74yytg59p0u0iuf584fbriufn48f4nf7
-    client:
-        service-url:
-            defaultZone: ${eureka.instance.protocol}://${eureka.instance.user}:${eureka.instance.password}@${eureka.instance.ip-address}:${eureka.instance.port}${eureka.instance.context-path}/eureka/
 zuul:
     routes:
-        account:
+        application-account:
             path: /account/**
             retryable: true
+            sensitive-headers:
             strip-prefix: false
     add-proxy-headers: true
+    retryable: true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+    ConnectTimeout: 3000
+    ReadTimeout: 60000
 management:
     context-path: /admin
