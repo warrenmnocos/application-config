@@ -16,7 +16,7 @@ spring:
         type: com.zaxxer.hikari.HikariDataSource
         username: root
         password: df7854ufeb45fbyf54reuh78uhj
-        url: jdbc:mysql://localhost:3306/application-account?serverTimezone=UTC
+        url: jdbc:mysql://172.17.0.1:3306/application-account?serverTimezone=UTC
         driver-class-name: com.mysql.jdbc.Driver
 security:
     user:
