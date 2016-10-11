@@ -49,4 +49,4 @@ management:
 application:
     account:
         service:
-            populate-database: true
+            populate-database: false
