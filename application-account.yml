@@ -2,8 +2,6 @@ spring:
     profiles: production
     application:
         name: application-account
-    aop:
-        proxy-target-class: true
     jpa:
         show-sql: true
         generate-ddl: true
@@ -30,8 +28,6 @@ security:
             client-secret: none
 eureka:
     instance:
-        appname: application-account
-        non-secure-port: ${server.port}
         protocol: http
         ip-address: 172.17.0.1
         port: 8081
