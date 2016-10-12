@@ -29,13 +29,13 @@ zuul:
             sensitive-headers:
             strip-prefix: false
     add-proxy-headers: true
-    retryable: true
 hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
 ribbon:
     ConnectTimeout: 3000
     ReadTimeout: 60000
 eureka:
     instance:
+        appname: application-gateway
         protocol: http
         ip-address: 172.17.0.1
         port: 8081

@@ -30,6 +30,7 @@ security:
             client-secret: none
 eureka:
     instance:
+        appname: application-account
         protocol: http
         ip-address: 172.17.0.1
         port: 8081
