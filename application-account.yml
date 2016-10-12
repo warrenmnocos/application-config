@@ -31,6 +31,7 @@ security:
 eureka:
     instance:
         appname: application-account
+        non-secure-port: ${server.port}
         protocol: http
         ip-address: 172.17.0.1
         port: 8081
