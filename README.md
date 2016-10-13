@@ -3,6 +3,7 @@ Objective
 -
 Use JPA to write a production quality RESTful web service application.
 
+---
 Requirements
 -
 > **Functional Requirements:** 
@@ -40,18 +41,22 @@ The diagram below shows the components or services for the application.
 ![Figure 1: High level services of the application](https://s11.postimg.org/kgs6vkgsz/components.jpg)
 
 - Gateway
-The gateway service defines how clients access the services in a microservices architecture. It provides a single entry point for clients, and external services to access the application.
+
+	The gateway service defines how clients access the services in a microservices architecture. It provides a single entry point for clients, and external services to access the application.
 The application uses Spring Cloud Netflix Zuul to implement the gateway.
 
 - Registry
-Service discovery pattern is used to route requests for a client to an available service instance in a microservices architecture, where services and service instances can grow and scale dramatically. WIth this, service-to-service calls are eased with added benefit of load balancing.
+
+	Service discovery pattern is used to route requests for a client to an available service instance in a microservices architecture, where services and service instances can grow and scale dramatically. WIth this, service-to-service calls are eased with added benefit of load balancing.
 The application leverages Spring Cloud Netflix Eureka to implement service discovery. Eureka is a client-side service discovery implementation, where services register themselves to the central service registry, and query for location of other services.
 
 - Config
-The application uses Spring Cloud Config as a central configuration server to all services. With this, services can be reconfigured anytime based on environment, profile, or demand, without shutdowns.
+
+	The application uses Spring Cloud Config as a central configuration server to all services. With this, services can be reconfigured anytime based on environment, profile, or demand, without shutdowns.
 
 - Account
-The account service is the only business service momentarily.
+
+	The account service is the only business service momentarily.
 
 With this architecture, the application is prepared for additional services to cater new requirements. Services are also ready to scale.
 
@@ -72,10 +77,86 @@ https://github.com/warrenmnocos/application-config
 
 http://104.199.173.188/account/api/rest/account
 
----
-Others
-==
+####Running the Application Locally
 
+Starting the application can be done so easily. Below describes how services of the application are ran in order.
+
+- Run first the `application-config`.
+- Other services can be ran after `application-config` in any order, but ideally, run `application-registry` next, to be followed by the `application-account`, and `application-gateway`.
+
+The table below shows the services with their default corresponding ports.
+
+| **Application** | **Default Port**
+|:--- | :--- |
+| application-config | 8080 |
+| application-registry | 8081 |
+| application-account | 8082 |
+| application-gateway| 80 |
+
+####Running the Application in Docker Container
+
+To run the application in Docker container, images of the services must be made first. 
+
+The project uses Spotify's `docker-maven-plugin`, which is globally configured in the parent's `pom.xml` file, to automate the creation of container images.
+
+Update the IP address and port of the `dockerHost` property under the configuration property of `docker-maven-plugin` in the parent's `pom.xml`, to point to the docker host to which the images will be built. 
+
+```xml
+<dockerHost>https://192.168.99.100:2376</dockerHost>
+```
+
+There may be a need to add an additional `dockerCertPath` property if the host is in `https`.
+
+```xml
+<dockerCertPath>C:/Users/Warren Nocos/.docker/machine/machines/default/</dockerCertPath>
+```
+
+For each services, run the following command to build the image.
+
+```
+mvn clean package docker:build
+```
+
+Images that are built in the container can be viewed by the following command:
+
+```
+docker images
+```
+
+Below is an example output after issuing `docker images`.
+
+```
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+application-config   1.0                 f1e6e29c365f        About an hour ago   665 MB
+mariadb              latest              be4475fa2151        12 days ago         389.8 MB
+openjdk              8                   96cddf5ae9f1        2 weeks ago         640.9 MB
+```
+
+Notice that the image `application-config` is successfully built, with tag `1.0`, which is the project's version. The image name is configured using the following convention in parent's `pom.xml` file.
+
+```xml
+<imageName>${project.artifactId}:${project.version}</imageName>
+```
+
+ To run the `application-config` image, name it as `application-config`, and bind it to port `8080`, issue the following command:
+
+```
+docker run --name application-config -p 8080:8080 -d application-config:1.0
+```
+
+To view the containers, issue the following command:
+
+```
+docker ps
+```
+
+A sample output of that command is shown below.
+
+```
+CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS              PORTS                    NAMES
+bf65c68f577d        application-config:1.0   "java -jar /app.war"   12 seconds ago      Up 9 seconds        0.0.0.0:8080->8080/tcp   application-config
+
+```
 ####Security Token
 
 All endpoints are secured with Spring Security and Spring Cloud OAuth2. OAuth2 is an open standard for authorizing clients to access resources. The following endpoint shows how to get an access token, which follows the resource owner password credentials grant type.
@@ -127,3 +208,10 @@ References
 ---
 - https://en.wikipedia.org/wiki/Microservices
 - http://microservices.io/
+- https://github.com/spotify/docker-maven-plugin
+- https://docs.docker.com/engine/reference/commandline/
+
+---
+License
+---
+This project is licensed under Apache License 2.0.
