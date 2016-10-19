@@ -1,4 +1,3 @@
-
 Objective
 -
 Use JPA to write a production quality RESTful web service application.
@@ -7,6 +6,7 @@ Use JPA to write a production quality RESTful web service application.
 Requirements
 -
 > **Functional Requirements:** 
+> 
 > Create a RESTful web service with the following functionalities;	
 > 
 > - A service that retrieves a JSON array of all unique dates (ignoring time) in the table. The resulting JSON array needs to be sorted in ascending order.
@@ -32,7 +32,7 @@ Solutions
 ---
 Architecture
 -
-####Components
+###Components
 
 Wikipedia defines microservice architecture as a specialisation of and implementation approach for service-oriented architectures (SOA) used to build flexible, independently deployable software systems. In microservices architecture, application is partitioned into individually deployable services. This is fitting if application components are desired to be simple, decoupled, pluggable, and scalable.
 
@@ -60,7 +60,7 @@ The application leverages Spring Cloud Netflix Eureka to implement service disco
 
 With this architecture, the application is prepared for additional services to cater new requirements. Services are also ready to scale.
 
-####Class Diagram
+###Class Diagram
 
 ![Figure 2: Account business model](https://s10.postimg.org/qrb5q49ll/class_diagram.png)
 
@@ -68,16 +68,16 @@ With this architecture, the application is prepared for additional services to c
 Output
 ===
 
-####Project Repository
+###Project Repository
 
 https://github.com/warrenmnocos/application
 https://github.com/warrenmnocos/application-config
 
-####Deployment
+###Deployment
 
 http://104.199.173.188/account/api/rest/account
 
-####Running the Application Locally
+###Running the Application Locally
 
 Starting the application can be done so easily. Below describes how services of the application are ran in order.
 
@@ -93,7 +93,7 @@ The table below shows the services with their default corresponding ports.
 | application-account | 8082 |
 | application-gateway| 80 |
 
-####Running the Application in Docker Container
+###Running the Application in Docker Container
 
 To run the application in Docker container, images of the services must be made first. 
 
@@ -157,13 +157,13 @@ CONTAINER ID        IMAGE                    COMMAND                CREATED     
 bf65c68f577d        application-config:1.0   "java -jar /app.war"   12 seconds ago      Up 9 seconds        0.0.0.0:8080->8080/tcp   application-config
 
 ```
-####Security Token
+###Security Token
 
 All endpoints are secured with Spring Security and Spring Cloud OAuth2. OAuth2 is an open standard for authorizing clients to access resources. The following endpoint shows how to get an access token, which follows the resource owner password credentials grant type.
 
 | Endpont | Purpose| Method | Parameters |
 | :--- | :--- | :--- | :--- |
-| http://104.199.173.188/account/oauth/token | Retrieves access token |  GET    |  **HTTP Basic Credentials (Required)** <br>  **a.**  the `username` is the `client_id` <br>  **b.**  the `password` is the `client_secret` |
+| http://104.199.173.188/account/oauth/token | Retrieves access token |  **POST**    |  **HTTP Basic Credentials (Required)** <br> **a.**  the `username` is the `client_id` <br> **b.**  the `password` is the `client_secret` <br> **POST data (Required)** <br> **a.** `grant_type`: String, value must be `password` <br> **b.** `username`: String (i.e. `warrenwevicknocos@gmail.com`) <br> **c.** `password`: String (i.e. `1234`) |
 
 Sample syntax using `curl`:
 
@@ -173,11 +173,11 @@ curl -XPOST d56h2sf5c5drsdgr4xpl234cm085021r:of7ho3vc86t00hd6bg7qrwpl12h754pl@10
 
 Sample response:
 
-```javascript
+```json
 {"access_token":"8f67f7fb-3fc0-4dde-82fb-387e63e89e3f","token_type":"bearer","refresh_token":"4d69f083-3e2c-4a1f-90ca-7e5ce394eb65","expires_in":3599,"scope":"read write"}
 ```
 
-####Endpoints
+###Endpoints
 
 The following endpoints exposes several business service operations.
 	
@@ -201,7 +201,7 @@ Limitations
 ---
 - The application is not served in HTTPS.
 - Cannot add, and update user accounts.
--  Cannot add client accounts (OAuth2).
+- Cannot add client accounts (OAuth2).
 
 ---
 References
