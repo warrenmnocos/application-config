@@ -1,3 +1,4 @@
+
 Objective
 -
 Use JPA to write a production quality RESTful web service application.
@@ -62,7 +63,7 @@ With this architecture, the application is prepared for additional services to c
 
 ###Class Diagram
 
-![Figure 2: Account business model](https://s10.postimg.org/qrb5q49ll/class_diagram.png)
+![Figure 2: Account business model](https://s22.postimg.org/j84tb1bi9/class_diagram.png)
 
 ---
 Output
@@ -155,8 +156,20 @@ A sample output of that command is shown below.
 ```
 CONTAINER ID        IMAGE                    COMMAND                CREATED             STATUS              PORTS                    NAMES
 bf65c68f577d        application-config:1.0   "java -jar /app.war"   12 seconds ago      Up 9 seconds        0.0.0.0:8080->8080/tcp   application-config
-
 ```
+
+###Data Population
+
+The `account-application` service provides a service that populates records on the database at runtime when `application.account.service.populate-database` property flag is set to `true`.  This is set depending on which `profile` the application activates. 
+
+> Spring has a notion of **profiles**, which provides a way to segregate parts of application configuration and make it only available in certain environments (e.g. `development`, `test`, or `production`).
+
+If the application is in `production` mode, with the help of the configuration server (in `application-config`), this setting can be activated, or deactivated after the database is populated. It is also possible to refresh the `application-account` to reflect this changes at runtime while the application is running and without bringing it down with the help of Spring Boot Actuator's `/refresh` endpoint, which basically reloads all beans with `refresh` scope (annotated with `@RefreshScope` annotation).
+
+```curl 
+curl -XPOST -H Authorization:"Bearer e665a762-7c9e-4df7-86ae-d29a4e62246f" 104.199.173.188/account/admin/refresh
+```
+
 ###Security Token
 
 All endpoints are secured with Spring Security and Spring Cloud OAuth2. OAuth2 is an open standard for authorizing clients to access resources. The following endpoint shows how to get an access token, which follows the resource owner password credentials grant type.
